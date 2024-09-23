@@ -18,8 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Results\Results.csproj" />
     <ProjectReference Include="..\Events\Events.csproj" />
+    <ProjectReference Include="..\Results\Results.csproj" />
   </ItemGroup>
 
 </Project>
