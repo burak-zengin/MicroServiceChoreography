@@ -1,0 +1,41 @@
+version: '3.4'
+
+name: microservicechoreography
+services:
+  sql:
+    image: "mcr.microsoft.com/azure-sql-edge"
+    container_name: sql
+    environment:
+        - ACCEPT_EULA=1
+        - MSSQL_USER=SA
+        - MSSQL_SA_PASSWORD=P@sSw0rd!
+        - MSSQL_PID=Developer
+    ports:
+        - "1433:1433"
+  rabbitmq:
+    image: "rabbitmq:3.8.14-management"
+    container_name: rabbitmq
+    ports:
+        - 15671:15671
+        - 15672:15672
+        - 15691:15691
+        - 15692:15692
+        - 25672:25672
+        - 4369:4369
+        - 5671:5671
+        - 5672:5672
+  order.api:
+    image: ${DOCKER_REGISTRY-}orderapi
+    build:
+      context: .
+      dockerfile: src/Order.Api/Dockerfile
+  payment.api:
+    image: ${DOCKER_REGISTRY-}paymentapi
+    build:
+      context: .
+      dockerfile: src/Payment.Api/Dockerfile
+  stock.api:
+    image: ${DOCKER_REGISTRY-}stockapi
+    build:
+      context: .
+      dockerfile: src/Stock.Api/Dockerfile
